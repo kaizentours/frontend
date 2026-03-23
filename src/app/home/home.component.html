@@ -1,0 +1,113 @@
+<section id="main">
+    <div class="container">
+        <div id="content">
+
+            <!-- Post -->
+            <article class="box post">
+                <header>
+                    <h2>Welcome to <strong>Kaizen Tours</strong><br />
+                        your trusted travel partner operating across the United Kingdom and India</h2>
+                </header>
+                <span class="image featured"><img src="assets/images/pic04.jpg" alt="" /></span>
+                <h3>And yeah, that's basically it</h3>
+                <p>We specialize in creating thoughtfully designed travel experiences conducted in <strong>English,
+                        Hindi, and Gujarati </strong>. Ensuring comfort and clear communication for our guests.</p>
+                <p>At Kaizen Tours, we go beyond sightseeing — we deliver memorable journeys led by highly experienced
+                    and engaging tour managers who bring destinations to life. For tours that include meals, we proudly
+                    provide authentic Indian cuisine, adding a touch of home to your travel experience.</p>
+                <p>Our mission is simple: to offer extraordinary travel experiences with complete transparency. We
+                    believe in clear itineraries, honest pricing, and absolutely <strong>no hidden charges</strong> As
+                    we
+                    continue expanding to new destinations, our commitment remains the same — delivering exceptional
+                    service, genuine hospitality, and unforgettable memories for every traveler.</p>
+                <!-- <h3>Accumsan lorem ipsum veroeros</h3>
+                <p>Consequat Phasellus laoreet massa id in, tristique at erat lorem
+                    ipsum dolor sit amet lorem ipsum sed consequat magna tempus veroeros
+                    consequat magna tempus lorem ipsum consequat Phasellus laoreet massa id
+                    justo mattis pharetra. Fusce suscipit ligula vel quam viverra sit amet
+                    mollis tortor congue. Sed quis mauris sit amet magna.</p>
+                <p>Phasellus laoreet massa id justo mattis pharetra. Fusce suscipit
+                    ligula vel quam viverra sit amet mollis tortor congue. Sed quis mauris
+                    sit amet magna accumsan tristique. Curabitur leo nibh, rutrum eu malesuada
+                    in, tristique at erat lorem ipsum dolor sit amet lorem ipsum sed consequat
+                    consequat magna tempus lorem ipsum consequat Phasellus laoreet massa id
+                    in, tristique at erat lorem ipsum dolor sit amet lorem ipsum sed consequat
+                    magna tempus veroeros lorem sed tempus aliquam lorem ipsum veroeros
+                    consequat magna tempus lorem ipsum consequat Phasellus laoreet massa id
+                    justo mattis pharetra. Fusce suscipit ligula vel quam viverra sit amet
+                    mollis tortor congue. Sed quis mauris sit amet magna accumsan tristique.
+                    Curabitur leo nibh, rutrum eu malesuada in tristique</p>
+                <h3>Ligula suspcipit fusce veroeros</h3>
+                <p>Nullam dolore etiam sed massa id in, tristique at erat lorem
+                    ipsum dolor sit amet lorem ipsum sed consequat magna tempus veroeros
+                    consequat magna tempus lorem ipsum consequat Phasellus laoreet massa id
+                    justo mattis pharetra. Fusce suscipit ligula vel quam viverra sit amet
+                    mollis tortor congue. Sed quis mauris sit amet magna.</p>
+                <p>Sed massa id justo mattis pharetra. Fusce suscipit
+                    ligula vel quam viverra sit amet mollis tortor congue. Sed quis mauris
+                    sit amet magna accumsan tristique. Curabitur leo nibh, rutrum eu malesuada
+                    in, tristique at erat lorem ipsum dolor sit amet lorem ipsum sed consequat
+                    consequat magna tempus lorem ipsum consequat Phasellus laoreet massa id
+                    in, tristique at erat lorem ipsum dolor sit amet lorem ipsum sed consequat
+                    magna tempus veroeros lorem sed tempus aliquam lorem ipsum veroeros
+                    consequat magna tempus lorem ipsum consequat Phasellus laoreet massa id
+                    justo mattis pharetra. Fusce suscipit ligula vel quam viverra sit amet
+                    mollis tortor congue. Sed quis mauris sit amet magna accumsan.</p> -->
+            </article>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="features">
+    <div class="container">
+        <header>
+            <h2>Our <strong>Tour Packages</strong></h2>
+        </header>
+
+        <!-- Loading State -->
+        <div *ngIf="loading" class="loading">
+            <p>Loading packages...</p>
+        </div>
+
+        <!-- Packages Grid -->
+        <div class="row aln-center" *ngIf="!loading">
+            <div class="col-4 col-6-medium col-12-small" *ngFor="let pkg of packages">
+
+
+
+                <!-- Feature -->
+                <section>
+                    <a routerLink="/packages/{{pkg._id}}" class="image featured"><img [src]="pkg.mainImage || 'assets/images/pic01.jpg'" [alt]="pkg.name" /></a>
+                    <header>
+                        <h3>{{ pkg.name }}</h3>
+                    </header>
+                    <p class="descriptionBox">{{ pkg.description | slice:0:100 }}...</p>
+                    <div class="package-info">
+                        <span class="duration"><i class="fas fa-clock"></i> {{ pkg.duration }}</span>
+                    </div>
+
+                    <div class="destination">
+                        <i class="fas fa-map-marker-alt"></i> {{ pkg.destination }}
+                    </div>
+                    <a routerLink="/packages/{{pkg._id}}" class="button">View Details</a>
+                    <a class="button alt" routerLink="/booking" [queryParams]="{packageId: pkg._id}">Book Now</a>
+                </section>
+
+
+            </div>
+
+            <!-- No Packages Message -->
+            <div *ngIf="!loading && packages.length === 0" class="no-packages">
+                <p>No packages available at the moment. Please check back later!</p>
+            </div>
+
+            <div class="col-12" *ngIf="packages.length > 0">
+                <ul class="actions">
+                    <li><a routerLink="/booking" class="button icon solid fa-plane">View All Packages</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

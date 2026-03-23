@@ -1,0 +1,40 @@
+<div class="bookings-list">
+      <h2>Bookings Management</h2>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Package</th>
+            <th>Traveler</th>
+            <th>Date</th>
+            <th>Travelers</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings">
+            <td>{{ booking._id | slice:0:8 }}...</td>
+            <td>{{ booking.packageName }}</td>
+            <td>{{ booking.fullName }}<br><small>{{ booking.email }}</small></td>
+            <td>{{ booking.tourDate | date:'mediumDate' }}</td>
+            <td>{{ booking.numberOfTravelers }}</td>
+            <td>Price TBD</td>
+            <td>
+              <span [class]="'badge ' + booking.bookingStatus">
+                {{ booking.bookingStatus }}
+              </span>
+            </td>
+            <td>
+              <select (change)="updateStatus(booking._id, $event)" [value]="booking.bookingStatus">
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirm</option>
+                <option value="cancelled">Cancel</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>

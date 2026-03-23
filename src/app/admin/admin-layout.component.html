@@ -1,0 +1,28 @@
+<div class="admin-container">
+  <aside class="sidebar">
+    <div class="logo">
+      <h3>Kaizen Admin</h3>
+    </div>
+    <nav>
+      <a routerLink="/admin/dashboard" routerLinkActive="active">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+      <a routerLink="/admin/packages" routerLinkActive="active">
+        <i class="fas fa-box"></i> Packages
+      </a>
+      <a routerLink="/admin/bookings" routerLinkActive="active">
+        <i class="fas fa-calendar-check"></i> Bookings
+      </a>
+      <a routerLink="/admin/contacts" routerLinkActive="active">
+        <i class="fas fa-envelope"></i> Contacts
+      </a>
+      <a (click)="logout()" class="logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </nav>
+  </aside>
+  
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

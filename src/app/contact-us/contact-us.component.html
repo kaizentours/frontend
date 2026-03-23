@@ -1,0 +1,54 @@
+<section id="main">
+    <div class="container">
+        <header class="major">
+            <h2>Contact Us</h2>
+            <p>Have questions? We'd love to hear from you!</p>
+        </header>
+
+        <div *ngIf="submitted" class="box success">
+            <i class="fas fa-check"></i>
+            <h3>Message Sent!</h3>
+            <p>Thank you for contacting us. We'll get back to you soon.</p>
+        </div>
+
+        <div class="row" *ngIf="!submitted">
+            <div class="col-6 col-12-medium">
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                    <div class="row gtr-50">
+                        <div class="col-12">
+                            <input type="text" formControlName="name" placeholder="Name *" />
+                        </div>
+                        <div class="col-12">
+                            <input type="email" formControlName="email" placeholder="Email *" />
+                        </div>
+                        <div class="col-12">
+                            <input type="tel" formControlName="phone" placeholder="Phone" />
+                        </div>
+                        <div class="col-12">
+                            <input type="text" formControlName="subject" placeholder="Subject" />
+                        </div>
+                        <div class="col-12">
+                            <textarea formControlName="message" placeholder="Message *" rows="6"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <ul class="actions">
+                                <li><input type="submit" class="button" value="Send Message"
+                                        [disabled]="contactForm.invalid || loading" /></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+                <p *ngIf="error" class="error">{{ error }}</p>
+            </div>
+
+            <div class="col-6 col-12-medium">
+                <section class="box">
+                    <h3>Get In Touch</h3>
+                    <p><i class="fas fa-envelope"></i> tusharpatel112@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, City</p>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>

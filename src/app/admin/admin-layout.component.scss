@@ -1,0 +1,52 @@
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: #1a1a1a;
+  color: white;
+  padding: 0;
+  
+  .logo {
+    padding: 20px;
+    background: #007bff;
+    text-align: center;
+    
+    h3 { margin: 0; }
+  }
+  
+  nav {
+    padding: 20px 0;
+    
+    a {
+      display: block;
+      color: #ccc;
+      padding: 15px 25px;
+      text-decoration: none;
+      transition: all 0.3s;
+      
+      &:hover, &.active {
+        background: #007bff;
+        color: white;
+      }
+      
+      i { margin-right: 10px; width: 20px; }
+    }
+    
+    .logout {
+      margin-top: 50px;
+      cursor: pointer;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
+  }
+}
+
+.admin-content {
+  flex: 1;
+  background: #f5f7fa;
+  padding: 30px;
+  overflow-y: auto;
+}

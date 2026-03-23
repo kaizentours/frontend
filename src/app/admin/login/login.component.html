@@ -1,0 +1,47 @@
+<div class="login-container">
+  <div class="login-box">
+    <div class="login-header">
+      <h2>Kaizen Tours</h2>
+      <p>Admin Login</p>
+    </div>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter your email"
+               [class.error]="f['email'].touched && f['email'].errors">
+        <span class="error-text" *ngIf="f['email'].touched && f['email'].errors?.['required']">
+          Email is required
+        </span>
+        <span class="error-text" *ngIf="f['email'].touched && f['email'].errors?.['email']">
+          Please enter a valid email
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Enter your password"
+               [class.error]="f['password'].touched && f['password'].errors">
+        <span class="error-text" *ngIf="f['password'].touched && f['password'].errors?.['required']">
+          Password is required
+        </span>
+        <span class="error-text" *ngIf="f['password'].touched && f['password'].errors?.['minlength']">
+          Password must be at least 6 characters
+        </span>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        {{ error }}
+      </div>
+
+      <button type="submit" class="login-btn" [disabled]="loading || loginForm.invalid">
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Default credentials:</p>
+      <p>Email: admin@kaizentours.com</p>
+      <p>Password: admin123</p>
+    </div>
+</div>

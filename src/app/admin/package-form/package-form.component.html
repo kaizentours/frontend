@@ -1,0 +1,109 @@
+<div class="package-form">
+    <h2>{{ isEditMode ? 'Edit' : 'Add New' }} Package</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>Package Name</label>
+            <input type="text" formControlName="name" placeholder="Enter package name" />
+        </div>
+
+        <div class="form-group">
+            <label>Short Description</label>
+            <textarea formControlName="shortDescription" rows="2"
+                placeholder="Short description for listing"></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Duration</label>
+                <input formControlName="duration" type="text" placeholder="e.g., 5 Days 4 Nights" />
+            </div>
+            <div class="form-group">
+                <label>Destination</label>
+                <input formControlName="destination" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Main Image</label>
+            <input type="file" accept="image/*" (change)="onMainImageChange($event)" />
+            <div *ngIf="form.get('mainImage')?.value" class="image-item" style="position: relative;">
+                <img [src]="form.get('mainImage')?.value" alt="Main Image Preview" class="image-preview-small" />
+                <div style="position: absolute; top: 0; right: 0; background: white; border-radius: 50%; padding: 2px;">
+                    <button type="button" class="remove-btn" style="margin: 0; padding: 4px;"
+                        (click)="form.patchValue({mainImage: ''}); mainImageName = '';">×</button>
+                </div>
+                <div style="margin-top: 8px; font-size: 14px; color: #64748b;">{{ mainImageName }}</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Gallery Images (multi-select)</label>
+            <input type="file" multiple accept="image/*" (change)="onGalleryImagesChange($event)" />
+            <div *ngIf="galleryImagesArray.length > 0" class="gallery-preview">
+                <div *ngFor="let img of galleryImagesArray.controls; let i = index" class="image-item">
+                    <img [src]="img.value" alt="Gallery Image {{i}}" class="image-preview-small" />
+                    <button type="button" class="remove-btn" (click)="removeGalleryImage(i)">×</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Resource Files (PDFs, brochures - multi-select)</label>
+            <input type="file" multiple accept=".pdf,.doc,.docx" (change)="onResourcesChange($event)" />
+            <div *ngIf="resourcesArray.length > 0" class="resource-preview">
+                <div *ngFor="let res of resourcesArray.controls; let i = index" class="resource-item">
+                    <span>{{ getFileName(res.value) }}</span>
+                    <button type="button" class="remove-btn" (click)="removeResource(i)">×</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Overview</label>
+                <quill-editor formControlName="overviewHTML"></quill-editor>
+            </div>
+            <div class="form-group">
+                <label>Itinerary</label>
+                <quill-editor formControlName="itineraryHTML"></quill-editor>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>How to Book</label>
+                <quill-editor formControlName="howToBookHTML"></quill-editor>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <quill-editor formControlName="description"></quill-editor>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Tour Dates</label>
+            <div formArrayName="tourDates">
+                <div *ngFor="let dateControl of tourDatesArray.controls; let i = index" class="date-row">
+                    <input type="date" formControlName="date" />
+                    <button type="button" (click)="removeDate(i)">Remove</button>
+                </div>
+                <button type="button" (click)="addDate()">+ Add Tour Date</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="switch-label">
+                <span>Package Status</span>
+                <label class="switch">
+                    <input type="checkbox" formControlName="isActive" />
+                    <span class="slider round"></span>
+                </label>
+            </label>
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">
+            {{ isEditMode ? 'Update' : 'Create' }} Package
+        </button>
+    </form>
+</div>

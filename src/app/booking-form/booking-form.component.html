@@ -1,0 +1,95 @@
+<section class="wrapper style2">
+  <div class="container">
+    
+    <!-- Booking Success -->
+    <div *ngIf="bookingSuccess" class="box highlight">
+      <i class="icon solid major fa-check-circle"></i>
+      <header>
+        <h2>Booking Confirmed!</h2>
+      </header>
+      <p>Thank you {{bookingForm.get('fullName')?.value}}! We will contact you within 24 hours.</p>
+      <ul class="actions">
+        <li><a class="button" (click)="resetForm()">Book Another</a></li>
+      </ul>
+    </div>
+
+    <!-- Booking Form -->
+    <div *ngIf="!bookingSuccess">
+      
+      <!-- Header -->
+      <header>
+        <h2>Complete Your Booking</h2>
+      </header>
+
+      <!-- Form -->
+      <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+        <div class="row gtr-50">
+          
+          <!-- 1. Select Package -->
+          <div class="col-12">
+            <div class="box highlight">
+              <header>
+                <h3>Select Package</h3>
+              </header>
+              <select formControlName="packageId" class="full-width">
+                <option value="">Choose a package...</option>
+                <option *ngFor="let pkg of packages" [value]="pkg._id">
+                  {{pkg.name}} - {{pkg.price | currency}}
+                </option>
+              </select>
+              <small *ngIf="packagePreselected" class="package-note">
+                Package pre-selected from package detail page
+              </small>
+            </div>
+          </div>
+
+          <!-- 2. Travel Date -->
+          <div class="col-12">
+            <div class="box highlight">
+              <header>
+                <h3>Select Travel Date</h3>
+              </header>
+              <input type="date" formControlName="travelDate" class="full-width" />
+            </div>
+          </div>
+
+          <!-- 3. Full Name -->
+          <div class="col-6 col-12-narrower">
+            <input formControlName="fullName" type="text" placeholder="Full Name *" />
+          </div>
+
+          <!-- 4. Email -->
+          <div class="col-6 col-12-narrower">
+            <input formControlName="email" type="email" placeholder="Email Address *" />
+          </div>
+
+          <!-- 5. Phone -->
+          <div class="col-6 col-12-narrower">
+            <input formControlName="phone" type="tel" placeholder="Phone Number *" />
+          </div>
+
+          <!-- 6. Number of Adults -->
+          <div class="col-6 col-12-narrower">
+            <input formControlName="adults" type="number" min="0" placeholder="Adults" />
+          </div>
+
+          <!-- 7. Number of Children -->
+          <div class="col-6 col-12-narrower">
+            <input formControlName="children" type="number" min="0" placeholder="Children" />
+          </div>
+
+          <!-- Submit -->
+          <div class="col-12">
+            <ul class="actions">
+              <li><input type="submit" [disabled]="bookingForm.invalid || submitting" 
+                   value="{{ submitting ? 'Submitting...' : 'Confirm Booking' }}" 
+                   class="button" /></li>
+            </ul>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>

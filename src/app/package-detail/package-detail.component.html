@@ -1,0 +1,177 @@
+<section class="hero-banner" *ngIf="package && !loading && !error" [style.background-image]="'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url(' + (package.mainImage || 'assets/images/pic01.jpg') + ')'">
+  <div class="container">
+    <div class="hero-content">
+      <header>
+        <h1>{{package.name}}</h1>
+        <p class="short-desc">{{package.shortDescription || package.description}}</p>
+      </header>
+      <div class="package-meta">
+        <div class="duration">
+          <i class="fas fa-clock"></i> {{package.duration}}
+        </div>
+        <div class="destination">
+          <i class="fas fa-map-marker-alt"></i> {{package.destination}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Loading -->
+<div *ngIf="loading" class="loading-section">
+  <div class="container">
+    <div class="spinner"></div>
+    <p>Loading package details...</p>
+  </div>
+</div>
+
+<!-- Error -->
+<div *ngIf="error" class="error-section">
+  <div class="container">
+    <h3>{{error}}</h3>
+    <a routerLink="/" class="button">← Back to Home</a>
+  </div>
+</div>
+
+<!-- Gallery -->
+<!-- <section class="gallery-section" *ngIf="package && package.galleryImages && package.galleryImages.length > 0">
+  <div class="container">
+    <header class="major centered">
+      <h2>Photo Gallery</h2>
+    </header>
+    <div class="gallery-slider">
+      <div class="slides-container">
+        <div class="slides">
+          <div *ngFor="let img of package.galleryImages; let i = index" class="slide" [class.active]="i === currentSlide">
+            <img [src]="img" [alt]="package.name">
+          </div>
+        </div>
+      </div>
+      <div class="slider-dots">
+        <button *ngFor="let img of package.galleryImages; let i = index" 
+                class="dot" [class.active]="i === currentSlide" (click)="goToSlide(i)">
+        </button>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Main Content Tabs -->
+<section class="tabs-section">
+  <div class="container">
+    <!-- Tab Navigation -->
+    <nav class="tab-navigation">
+      <div class="tab-list">
+        <button class="tab-button" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+          <i class="fas fa-info-circle"></i> Overview
+        </button>
+        <button class="tab-button" [class.active]="activeTab === 'itinerary'" (click)="setActiveTab('itinerary')">
+          <i class="fas fa-map"></i> Itinerary
+        </button>
+        <button class="tab-button" [class.active]="activeTab === 'howtobook'" (click)="setActiveTab('howtobook')">
+          <i class="fas fa-book"></i> How to Book
+        </button>
+        <button class="tab-button" [class.active]="activeTab === 'description'" (click)="setActiveTab('description')">
+          <i class="fas fa-align-left"></i> Description
+        </button>
+        <button class="tab-button" [class.active]="activeTab === 'resources'" (click)="setActiveTab('resources')">
+          <i class="fas fa-download"></i> Resources
+        </button>
+        <button class="tab-button" [class.active]="activeTab === 'dates'" (click)="setActiveTab('dates')">
+          <i class="fas fa-calendar-alt"></i> Tour Dates
+        </button>
+      </div>
+    </nav>
+
+    <!-- Tab Panels -->
+    <div class="tab-panels">
+      <!-- Overview Tab -->
+      <div *ngIf="activeTab === 'overview'" class="tab-panel">
+        <div class="box post">
+          <div class="inner">
+            <h3>Package Overview</h3>
+            <div [innerHTML]="package.overviewHTML || package.description"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Itinerary Tab -->
+      <div *ngIf="activeTab === 'itinerary'" class="tab-panel">
+        <div class="box post">
+          <div class="inner">
+            <h3>Detailed Itinerary</h3>
+            <div [innerHTML]="package.itineraryHTML || 'Coming soon...'"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How to Book Tab -->
+      <div *ngIf="activeTab === 'howtobook'" class="tab-panel">
+        <div class="box post">
+          <div class="inner">
+            <h3>How to Book</h3>
+            <div [innerHTML]="package.howToBookHTML || 'Contact us for booking details...'"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description Tab -->
+      <div *ngIf="activeTab === 'description'" class="tab-panel">
+        <div class="box post">
+          <div class="inner">
+            <h3>Complete Description</h3>
+            <p>{{package.description}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources Tab -->
+      <div *ngIf="activeTab === 'resources'" class="tab-panel">
+        <div class="box post">
+          <div class="inner">
+            <h3>Download Resources</h3>
+            <div class="resources-list" *ngIf="package.resources && package.resources.length > 0">
+              <a *ngFor="let resource of package.resources" [href]="resource" target="_blank" class="resource-link">
+                <i class="fas fa-file-pdf"></i> {{resource.name || 'Resource File'}}
+              </a>
+            </div>
+            <p *ngIf="!package.resources || package.resources.length === 0" class="no-content">
+              No resources available for this package
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tour Dates Tab -->
+      <div *ngIf="activeTab === 'dates'" class="tab-panel">
+        <div class="box highlight">
+          <h3>Available Tour Dates</h3>
+          <div class="tour-dates-grid" *ngIf="package.tourDates && package.tourDates.length > 0">
+            <div *ngFor="let date of package.tourDates" class="tour-date-card" [class.booked]="date.status === 'booked'">
+              <div class="date">{{date.date | date:'fullDate'}}</div>
+              <!-- <div class="status">{{date.status || 'Available'}}</div> -->
+              <!-- <div class="price">\${{date.price || package.price}}</div> -->
+            </div>
+          </div>
+          <div class="no-dates" *ngIf="!package.tourDates || package.tourDates.length === 0">
+            <p>No specific tour dates available. Contact us for custom dates.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section id="cta" class="wrapper style3">
+  <div class="container">
+    <header>
+      <h2>Ready to Start Your Adventure?</h2>
+      <p>Get in touch today to book your dream package</p>
+    </header>
+    <ul class="actions">
+      <li><a class="button" (click)="bookNow()">Book This Package</a></li>
+      <li><a href="tel:+1234567890" class="button alt icon fa-phone">Call Now</a></li>
+    </ul>
+  </div>
+</section>

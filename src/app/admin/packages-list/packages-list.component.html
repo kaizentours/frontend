@@ -1,0 +1,36 @@
+<div class="packages-list">
+    <div class="header">
+        <h2>Packages Management</h2>
+        <button class="btn-primary" (click)="addPackage()">Add New Package</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Destination</th>
+                <th>Price</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pkg of packages">
+                <td>{{ pkg.name }}</td>
+                <td>{{ pkg.destination }}</td>
+                <td>\${{ pkg.price }}</td>
+                <td>{{ pkg.duration }}</td>
+                <td>
+                    <span [class]="pkg.isActive ? 'badge active' : 'badge inactive'">
+                        {{ pkg.isActive ? 'Active' : 'Inactive' }}
+                    </span>
+                </td>
+                <td>
+                    <button (click)="editPackage(pkg._id)">Edit</button>
+                    <button (click)="deletePackage(pkg._id)" class="btn-danger">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,45 @@
+<div class="admin-wrapper">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Kaizen Admin</h2>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" routerLinkActive="active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      
+      <a routerLink="/admin/packages" routerLinkActive="active">
+        <i class="fas fa-box"></i>
+        <span>Packages</span>
+      </a>
+      
+      <!-- <a routerLink="/admin/packages/new" routerLinkActive="active">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add Package</span>
+      </a> -->
+      
+      <a routerLink="/admin/bookings" routerLinkActive="active">
+        <i class="fas fa-calendar-check"></i>
+        <span>Bookings</span>
+      </a>
+      
+      <a routerLink="/admin/contacts" routerLinkActive="active">
+        <i class="fas fa-envelope"></i>
+        <span>Contacts</span>
+      </a>
+      
+      <a class="logout" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+  </aside>
+  
+  <!-- Main Content -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
